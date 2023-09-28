@@ -1,0 +1,21 @@
+type Feed @entity {
+  # Chainlink contract address of the feed
+  id: ID!
+  # List of prices for this feed
+  prices: [Price!]! @derivedFrom(field: "contractAddress")
+}
+
+type Price @entity {
+  # Tx hash of price update
+  id: ID!
+  # Chainlink contract address of the feed
+  contractAddress: Feed!
+  # Price of the feed
+  price: BigInt!
+  # Chainlink roundId of the price update
+  roundId: BigInt!
+  # Timestamp the feed submitted the price update
+  updatedAt: BigInt!
+  # Timestamp the price update was confirmed on-chain
+  blockTimestamp: Int!
+}
